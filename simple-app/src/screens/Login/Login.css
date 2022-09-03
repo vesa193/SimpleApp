@@ -1,0 +1,8 @@
+.login-title {
+    margin-bottom: 1.5rem;
+}
+
+.login-error-message {
+    color: rgb(233, 71, 71);
+    margin-top: 1.5rem;
+}
