@@ -2,6 +2,11 @@
     margin-bottom: 1.5rem;
 }
 
+.login-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
 .login-error-message {
     color: rgb(233, 71, 71);
     margin-top: 1.5rem;

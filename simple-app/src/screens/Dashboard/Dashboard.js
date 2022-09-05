@@ -1,22 +1,26 @@
-import { LinkRedirection } from "../../components/Link/Link";
-import { useAuth } from "../../hooks/useAuth";
+import { Button, Grid, Typography } from '@mui/material';
+import { LinkRedirection } from '../../components/Link/Link';
+import Wrapper from '../../components/Wrapper/Wrapper';
+import { useAuth } from '../../hooks/useAuth';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const { user, logout } = useAuth();
+  const { user, logout } = useAuth();
 
-    return (
-        <div>
-            <h3>Dashboard</h3>
-            <p className="dashboard-content">Welcome {user.data.username}</p>
-            <button onClick={logout}>Log out</button>
-            <br />
-            <br />
-            <div>
-                <LinkRedirection path="/allUsers">All users</LinkRedirection>
-            </div>
-        </div>
-    );
+  return (
+    <Wrapper>
+      <h3>Dashboard</h3>
+      <Typography textAlign="center" marginY={4} className="dashboard-content">
+        Welcome {user.data.username}
+      </Typography>
+      <Grid display="flex" justifyContent="space-between">
+        <Button variant="contained" onClick={logout}>
+          Log out
+        </Button>
+        <LinkRedirection path="/allUsers">All users</LinkRedirection>
+      </Grid>
+    </Wrapper>
+  );
 };
 
 export default Dashboard;

@@ -1,5 +1,6 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Navigate, Outlet } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useAuth } from '../hooks/useAuth';
 
 export const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -8,5 +9,9 @@ export const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" replace />;
   }
 
-  return children ? children : <Outlet />;
+  return children || <Outlet />;
+};
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.element.isRequired,
 };
