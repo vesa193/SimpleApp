@@ -33,6 +33,10 @@ function App() {
         const { accessToken, message } = res.data;
         if (accessToken) {
           login(res.data);
+          setFormData({
+            username: '',
+            password: '',
+          });
           setErrorMessage('');
           return;
         }
@@ -70,7 +74,14 @@ function App() {
       <Route
         index
         path="/"
-        element={<Login onChangeHandler={onChangeHandler} onSubmitHandler={onLogin} errorMessage={errorMessage} />}
+        element={
+          <Login
+            onChangeHandler={onChangeHandler}
+            onSubmitHandler={onLogin}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
+        }
       />
       <Route path="/register" element={<Register onChangeHandler={onChangeHandler} onSubmitHandler={onRegister} />} />
       <Route

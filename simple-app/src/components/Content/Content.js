@@ -6,7 +6,7 @@ const Content = ({ children }) => <div className="content">{children}</div>;
 Content.displayName = 'Content';
 
 Content.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node,
 };
 
 export default Content;

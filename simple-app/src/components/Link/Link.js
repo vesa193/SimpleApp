@@ -12,6 +12,6 @@ export const LinkRedirection = ({ children, path }) => (
 );
 
 LinkRedirection.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.string.isRequired,
   path: PropTypes.string,
 };

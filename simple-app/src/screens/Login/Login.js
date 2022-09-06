@@ -1,42 +1,52 @@
+import React, { useEffect } from 'react';
 import { Box, Button, Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { LinkRedirection } from '../../components/Link/Link';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import './Login.css';
 
-const Login = ({ onSubmitHandler, onChangeHandler, errorMessage }) => (
-  <Wrapper>
-    <h3 className="login-title">Login</h3>
-    <form onSubmit={onSubmitHandler}>
-      <Box className="login-inputs">
-        <TextField
-          fullWidth
-          margin="normal"
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={onChangeHandler}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={onChangeHandler}
-        />
-      </Box>
-      <Grid marginTop={2} display="flex" justifyContent="space-between">
-        <Button variant="contained" type="submit">
-          Login
-        </Button>
-        <LinkRedirection path="/register">Register</LinkRedirection>
-      </Grid>
+const Login = ({ onSubmitHandler, onChangeHandler, errorMessage, setErrorMessage }) => {
+  useEffect(
+    () => () => {
+      setErrorMessage('');
+    },
+    [setErrorMessage]
+  );
 
-      {errorMessage && <p className="login-error-message">{`${errorMessage}, please make an account.`}</p>}
-    </form>
-  </Wrapper>
-);
+  return (
+    <Wrapper>
+      <h3 className="login-title">Login</h3>
+      <form onSubmit={onSubmitHandler}>
+        <Box className="login-inputs">
+          <TextField
+            fullWidth
+            margin="normal"
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={onChangeHandler}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={onChangeHandler}
+          />
+        </Box>
+        <Grid marginTop={2} display="flex" justifyContent="space-between">
+          <LinkRedirection path="/register">Register</LinkRedirection>
+          <Button variant="contained" type="submit">
+            Login
+          </Button>
+        </Grid>
+
+        {errorMessage && <p className="login-error-message">{`${errorMessage}, please make an account.`}</p>}
+      </form>
+    </Wrapper>
+  );
+};
 
 Login.defaultProps = {
   onSubmitHandler: () => null,
@@ -46,6 +56,7 @@ Login.defaultProps = {
 Login.propTypes = {
   onSubmitHandler: PropTypes.func,
   onChangeHandler: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };
 

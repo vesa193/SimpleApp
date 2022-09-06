@@ -25,13 +25,12 @@ const Register = ({ onSubmitHandler, onChangeHandler }) => (
         onChange={onChangeHandler}
       />
       <Grid marginTop={2} display="flex" justifyContent="space-between">
-        <Button variant="contained" type="submit">
-          Register
-        </Button>
-
         <LinkRedirection path="/" replace>
           Login
         </LinkRedirection>
+        <Button variant="contained" type="submit">
+          Register
+        </Button>
       </Grid>
     </form>
   </Wrapper>

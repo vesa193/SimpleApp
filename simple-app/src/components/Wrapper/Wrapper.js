@@ -15,7 +15,7 @@ Wrapper.defaultProps = {
 };
 
 Wrapper.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node,
   verticalAlignment: PropTypes.string,
 };
 
