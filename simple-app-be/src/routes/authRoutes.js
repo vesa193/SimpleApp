@@ -16,7 +16,7 @@ function generateToken(userData, tokenSecret, expirationTime) {
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const accessToken = generateToken({ username }, accessTokenSecret, '1m');
-    const refreshToken = generateToken({ username }, refreshTokenSecret, '2m');
+    const refreshToken = generateToken({ username }, refreshTokenSecret, '5m');
     
     User.findOne({ username }).then(user => {
         if (!user) return res.status(400).json({ message: 'User not exist' });
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
             if (!data) {
                 return res.status(400).json({ message: 'Invalid credentials' })
             }
-            return res.status(200).json({ accessToken, refreshToken, data: { id: user._id, username, createdAt: user.createdAt }, message: 'Login success' })
+            return res.status(200).json({ accessToken, refreshToken, user: { id: user._id, username, createdAt: user.createdAt }, message: 'Login success' })
         })
     })
 });
@@ -38,19 +38,29 @@ router.post('/register', async (req, res) => {
         return res.status(400).json({ data: {message: 'Username or password is wrong!'} })
     }
 
-    const user = new User({ username, password });
+    let user = await User.findOne({ username });
+
+    if (user) {
+        return res.status(400).json({ message: 'Username already taken' });
+    }
+
+    user = new User({ username, password });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     user.createdAt = new Date().toISOString();
     user.save();
 
     const accessToken = generateToken({ username }, accessTokenSecret, '1m');
-    const refreshToken = generateToken({ username }, refreshTokenSecret, '2m');
-    return res.status(201).json({ accessToken, refreshToken, data: { id: user._id, username, createdAt: user.createdAt }, message: 'Registrate success' });
+    const refreshToken = generateToken({ username }, refreshTokenSecret, '5m');
+    return res.status(201).json({ accessToken, refreshToken, user: { id: user._id, username, createdAt: user.createdAt }, message: 'Registrate success' });
 });
 
 router.post('/token', async (req, res) => {
     const { username, refreshToken } = req.body;
+    
+    if (!(username && refreshToken)) {
+        return res.status(400).json({ message: "Wrong field posted" });
+    }
 
     const isValid = verifyRefresh(username, refreshToken);
     

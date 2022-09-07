@@ -1,3 +1,6 @@
-- Register screen --> make flow if user hit credentials already exist, output message error like User exist, please go to over login with these credentials
+- Register screen --> make flow if user hit credentials already exist, output message error like User exist, please go to over login with these credentials // done
 
-- Make flow of permissions for users. (make an admin user, then check to delete some users or post something to the server over this role);
+- Make flow of permissions for users. (make an admin user, then check to delete some users or post something to the server over this role); // backlog
+
+- Sending tokens (access and refresh) over browser cookie as safety way;
+Use it over the interceptors on client side;

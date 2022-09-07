@@ -1,5 +1,8 @@
 {
   "prettier.jsxSingleQuote": false,
   "prettier.singleQuote": false,
-  "prettier.embeddedLanguageFormatting": "off"
+"prettier.embeddedLanguageFormatting": "off",
+"editor.codeActionsOnSave": {
+
+}
 }
