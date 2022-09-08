@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getLocalAccessToken, getLocalRefreshToken, getUserData } from '../utils/utils';
+import store from '../redux/store';
+import { getLocalAccessToken, getLocalRefreshToken } from '../utils/utils';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
@@ -40,12 +41,11 @@ axiosInstance.interceptors.response.use(
                 originalConfig._retry = true;
 
                 try {
-                    const user = getUserData();
-                    const rs = await refreshToken('Lazar');
-                    // eslint-disable-next-line no-console
-                    console.log('rs', rs);
-                    const { accessToken } = rs.data;
-                    localStorage.setItem('accessToken', JSON.stringify(accessToken));
+                    const { user } = store.getState();
+                    const username = user?.userData?.user?.username || '';
+                    const rs = await refreshToken(username);
+                    const { accessToken } = rs;
+                    localStorage.setItem('accessToken', accessToken);
 
                     originalConfig.headers = {
                         ...originalConfig.headers,

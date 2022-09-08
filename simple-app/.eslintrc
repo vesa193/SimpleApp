@@ -2,6 +2,7 @@
   "extends": ["wesbos"],
   "rules": {
     "no-console": 2,
+    "import/no-cycle": "off",
     "no-use-before-define": "off",
     "prettier/prettier": [
       "error",

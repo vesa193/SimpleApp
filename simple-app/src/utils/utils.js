@@ -13,4 +13,8 @@ const getUserData = () => {
     return user || null;
 };
 
-export { getLocalAccessToken, getLocalRefreshToken, getUserData };
+const navigateTo = (navigate, path, isReplaceRoute = false) => {
+    navigate(path, isReplaceRoute && { replace: true });
+};
+
+export { getLocalAccessToken, getLocalRefreshToken, getUserData, navigateTo };

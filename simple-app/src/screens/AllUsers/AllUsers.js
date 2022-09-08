@@ -1,12 +1,11 @@
 import { List, ListItem } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import { getAllUsersRequest } from '../../redux/reducers/users/users';
 
 const AllUsers = () => {
     const dispatch = useDispatch();
-    const [users, setUsers] = useState({});
     const { usersList } = useSelector((state) => state?.users);
 
     useEffect(() => {

@@ -1,10 +1,10 @@
 import { Box, Button, Grid, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LinkRedirection } from '../../components/Link/Link';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import { onLoginRequest } from '../../redux/reducers/user/user';
+import { onLoginFailed, onLoginRequest } from '../../redux/reducers/user/user';
 import './Login.css';
 
 const Login = () => {
@@ -16,14 +16,13 @@ const Login = () => {
         username: '',
         password: '',
     });
-    // const [errorMessage, setErrorMessage] = useState('');
 
-    // useEffect(
-    //     () => () => {
-    //         setErrorMessage('');
-    //     },
-    //     [setErrorMessage]
-    // );
+    useEffect(
+        () => () => {
+            dispatch(onLoginFailed(''));
+        },
+        [dispatch]
+    );
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
@@ -41,31 +40,6 @@ const Login = () => {
     const onLogin = (e) => {
         e.preventDefault();
         dispatch(onLoginRequest({ formData, cb: redirectTo }));
-        // userLogin(formData)
-        //     .then((res) => {
-        //         const { accessToken, message } = res.data;
-        //         if (accessToken) {
-        //             login(res.data);
-        //             setFormData({
-        //                 username: '',
-        //                 password: '',
-        //             });
-        //             setErrorMessage('');
-        //             return;
-        //         }
-
-        //         if (message) {
-        //             setErrorMessage(message);
-        //             return;
-        //         }
-
-        //         logout();
-        //     })
-        //     .catch((err) => {
-        //         const { response } = err;
-        //         setErrorMessage(response?.data?.message);
-        //         logout();
-        //     });
     };
 
     return (

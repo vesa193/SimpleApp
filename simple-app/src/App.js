@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useAuth } from './hooks/useAuth';
-import { userLogin, userRegister } from './lib/api';
+import { userRegister } from './lib/api';
 import { ProtectedRoute } from './protectedRoute/protectedRoute';
 import AllUsers from './screens/AllUsers/AllUsers';
 import Dashboard from './screens/Dashboard/Dashboard';
