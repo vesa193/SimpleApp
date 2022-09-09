@@ -1,10 +1,10 @@
 import { Button, Grid, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LinkRedirection } from '../../components/Link/Link';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import { onRegisterFailed, onRegisterRequest } from '../../redux/reducers/user/user';
+import { onRegisterRequest } from '../../redux/reducers/user/user';
 import './Register.css';
 
 const Register = () => {
@@ -16,12 +16,12 @@ const Register = () => {
         password: '',
     });
 
-    useEffect(
-        () => () => {
-            dispatch(onRegisterFailed(''));
-        },
-        [dispatch]
-    );
+    // useEffect(
+    //     () => () => {
+    //         dispatch(onRegisterFailed(''));
+    //     },
+    //     [dispatch]
+    // );
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;

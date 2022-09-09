@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { onLogoutRequest } from '../redux/reducers/user/user';
 import store from '../redux/store';
 import { getLocalAccessToken, getLocalRefreshToken } from '../utils/utils';
 
@@ -41,15 +42,19 @@ axiosInstance.interceptors.response.use(
                 originalConfig._retry = true;
 
                 try {
+                    // eslint-disable-next-line no-console
+                    console.log('store.getState()', store.getState());
                     const { user } = store.getState();
+                    // eslint-disable-next-line no-console
+                    console.log('USER', user);
                     const username = user?.userData?.user?.username || '';
-                    const rs = await refreshToken(username);
+                    const rs = username && (await refreshToken(username));
                     const { accessToken } = rs;
-                    localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('accessToken', accessToken || null);
 
                     originalConfig.headers = {
                         ...originalConfig.headers,
-                        Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${accessToken || null}`,
                     };
 
                     return axiosInstance(originalConfig);
@@ -63,8 +68,7 @@ axiosInstance.interceptors.response.use(
             }
 
             if (error.response.status === 403 && error.response.data) {
-                localStorage.clear();
-                window.location = '/';
+                store.dispatch(onLogoutRequest());
                 return Promise.reject(error.response.data);
             }
         }
@@ -77,6 +81,7 @@ const endpoints = {
     register: '/auth/register', // post,
     token: '/auth/token', // post,
     allUsers: '/allUsers', // get,
+    profile: '/profile', // get,
 };
 
 export const userLogin = (data) =>
@@ -100,6 +105,12 @@ export const userRefreshToken = (data) =>
 export const getAllUsers = () =>
     axiosInstance
         .get(`${baseURL}${endpoints.allUsers}`)
+        .then((res) => res.data)
+        // eslint-disable-next-line no-console
+        .catch((err) => err);
+export const getProfile = () =>
+    axiosInstance
+        .get(`${baseURL}${endpoints.profile}`)
         .then((res) => res.data)
         // eslint-disable-next-line no-console
         .catch((err) => err);

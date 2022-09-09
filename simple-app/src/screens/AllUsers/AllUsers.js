@@ -1,6 +1,7 @@
 import { List, ListItem } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LinkRedirection } from '../../components/Link/Link';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import { getAllUsersRequest } from '../../redux/reducers/users/users';
 
@@ -9,9 +10,6 @@ const AllUsers = () => {
     const { usersList } = useSelector((state) => state?.users);
 
     useEffect(() => {
-        // get all users
-        // eslint-disable-next-line no-console
-        console.log('Start get all users');
         dispatch(getAllUsersRequest());
     }, [dispatch]);
 
@@ -36,6 +34,7 @@ const AllUsers = () => {
                     })}
                 </ul>
             ) : null}
+            <LinkRedirection path="/dashboard">Dashboard</LinkRedirection>
         </Wrapper>
     );
 };

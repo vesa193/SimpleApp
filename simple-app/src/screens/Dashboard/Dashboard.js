@@ -7,7 +7,7 @@ import { onLogoutRequest } from '../../redux/reducers/user/user';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const { user } = useSelector((state) => state?.user?.userData);
+    const userData = useSelector((state) => state?.user?.userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
         <Wrapper>
             <h3>Dashboard</h3>
             <Typography textAlign="center" marginY={4} className="dashboard-content">
-                Welcome {user?.username}
+                Welcome {userData?.user?.username || ''}
             </Typography>
             <Grid display="flex" justifyContent="space-between">
                 <Button variant="contained" onClick={() => dispatch(onLogoutRequest({ cb: redirectTo }))}>

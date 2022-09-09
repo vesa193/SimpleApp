@@ -3,6 +3,7 @@ const dotenv = require('../../configEnv');
 
 exports.authenticateJWT = (req, res, next) => {
     const isAuth = req.get('Authorization');
+    console.log('AUTH', isAuth);
     const token = isAuth?.split(' ')[1];
 
     if (!isAuth) {
@@ -24,6 +25,12 @@ exports.authenticateJWT = (req, res, next) => {
     } catch (error) {
       if (error.message === "jwt expired") {
         const error = new Error('jwt expired');
+        error.statusCode = 401;
+        throw error;
+      }
+
+      if (error.message === "jwt malformed") {
+        const error = new Error('jwt malformed');
         error.statusCode = 401;
         throw error;
       }

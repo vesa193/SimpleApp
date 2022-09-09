@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { AuthProvider } from './hooks/useAuth';
+import { NavigateSetter } from './components/History/NavigateSetter';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 import configureStore from './redux/store';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <React.StrictMode>
             <Provider store={configureStore}>
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
+                {/* <AuthProvider> */}
+                <NavigateSetter />
+                <App />
+                {/* </AuthProvider> */}
             </Provider>
         </React.StrictMode>
     </BrowserRouter>

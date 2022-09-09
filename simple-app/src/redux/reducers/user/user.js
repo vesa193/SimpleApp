@@ -51,6 +51,19 @@ export const userSlice = createSlice({
             state.errorMessage = action.payload;
             state.isLoading = false;
         },
+        getUserProfileRequest: (state) => {
+            state.isLoading = true;
+        },
+        getUserProfileSuccess: (state, action) => {
+            // eslint-disable-next-line no-console
+            console.log('ACTION', action);
+            state.isLoading = false;
+            state.userData = { ...state.userData, user: action?.payload?.user };
+        },
+        getUserProfileFailed: (state, action) => {
+            state.errorMessage = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
@@ -68,6 +81,9 @@ export const {
     getRefreshTokenRequest,
     getRefreshTokenSuccess,
     getRefreshTokenFailed,
+    getUserProfileRequest,
+    getUserProfileSuccess,
+    getUserProfileFailed,
 } = userSlice.actions;
 
 export default userSlice.reducer;

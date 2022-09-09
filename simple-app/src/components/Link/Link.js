@@ -3,15 +3,25 @@ import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import './Link.css';
 
-export const LinkRedirection = ({ children, path }) => (
-    <Button>
+export const LinkRedirection = ({ children, path, type }) =>
+    type === 'button' ? (
+        <Button>
+            <Link className="link" to={path}>
+                {children}
+            </Link>
+        </Button>
+    ) : (
         <Link className="link" to={path}>
             {children}
         </Link>
-    </Button>
-);
+    );
+
+LinkRedirection.defaultProps = {
+    type: 'link',
+};
 
 LinkRedirection.propTypes = {
     children: PropTypes.string.isRequired,
-    path: PropTypes.string,
+    path: PropTypes.string.isRequired,
+    type: PropTypes.string,
 };

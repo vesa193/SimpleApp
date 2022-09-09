@@ -3,4 +3,4 @@
 - Make flow of permissions for users. (make an admin user, then check to delete some users or post something to the server over this role); // backlog
 
 - Sending tokens (access and refresh) over browser cookie as safety way;
-Use it over the interceptors on client side;
+Use it over the interceptors on client side; // backlog

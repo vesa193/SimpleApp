@@ -8,6 +8,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const { MongoClient } = require("mongodb");
 const { authenticateJWT } = require('./src/middlewares/authenticateJWT');
 const { getAllUsers } = require('./src/routes/allUsersRoute');
+const { getProfile } = require('./src/routes/getProfile');
 const port = 5000;
 
 mongoose
@@ -30,6 +31,8 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 
 app.get('/allUsers', authenticateJWT, getAllUsers);
+
+app.get('/profile', authenticateJWT, getProfile);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}/`);

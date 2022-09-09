@@ -15,8 +15,8 @@ function generateToken(userData, tokenSecret, expirationTime) {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const accessToken = generateToken({ username }, accessTokenSecret, '1m');
-    const refreshToken = generateToken({ username }, refreshTokenSecret, '5m');
+    const accessToken = generateToken({ username }, accessTokenSecret, '10s');
+    const refreshToken = generateToken({ username }, refreshTokenSecret, '30s');
     
     User.findOne({ username }).then(user => {
         if (!user) return res.status(400).json({ message: 'User not exist' });
@@ -50,8 +50,8 @@ router.post('/register', async (req, res) => {
     user.createdAt = new Date().toISOString();
     user.save();
 
-    const accessToken = generateToken({ username }, accessTokenSecret, '1m');
-    const refreshToken = generateToken({ username }, refreshTokenSecret, '5m');
+    const accessToken = generateToken({ username }, accessTokenSecret, '10s');
+    const refreshToken = generateToken({ username }, refreshTokenSecret, '30s');
     return res.status(201).json({ accessToken, refreshToken, user: { id: user._id, username, createdAt: user.createdAt }, message: 'Registrate success' });
 });
 
@@ -68,7 +68,7 @@ router.post('/token', async (req, res) => {
         return res.status(403).json({ message: "Token is not valid" });
     }
 
-    const accessToken = generateToken({ username }, accessTokenSecret, '1m');
+    const accessToken = generateToken({ username }, accessTokenSecret, '10s');
     res.json({ accessToken });
 });
 

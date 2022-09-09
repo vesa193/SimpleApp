@@ -4,12 +4,12 @@ import { onLogoutRequest, onLogoutSuccess, onLogoutFailed } from '../../redux/re
 // userLogoutFlow saga handler
 export function* userLogoutFlow() {
     while (true) {
-        const { payload } = yield take(onLogoutRequest.type);
+        yield take(onLogoutRequest.type);
         try {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             yield put(onLogoutSuccess(null));
-            payload.cb('/');
+            History.navigate('/', { replace: true });
         } catch (error) {
             // eslint-disable-next-line no-console
             console.log('e.message', error.message);
