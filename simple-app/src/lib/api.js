@@ -5,9 +5,9 @@ import { getLocalAccessToken, getLocalRefreshToken } from '../utils/utils';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-const refreshToken = (username) => {
+const refreshToken = () => {
     const getRefreshToken = getLocalRefreshToken();
-    return userRefreshToken({ username, refreshToken: getRefreshToken });
+    return userRefreshToken({ refreshToken: getRefreshToken });
 };
 
 const axiosInstance = axios.create({
@@ -47,8 +47,7 @@ axiosInstance.interceptors.response.use(
                     const { user } = store.getState();
                     // eslint-disable-next-line no-console
                     console.log('USER', user);
-                    const username = user?.userData?.user?.username || '';
-                    const rs = username && (await refreshToken(username));
+                    const rs = await refreshToken();
                     const { accessToken } = rs;
                     localStorage.setItem('accessToken', accessToken || null);
 

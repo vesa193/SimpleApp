@@ -56,20 +56,20 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/token', async (req, res) => {
-    const { username, refreshToken } = req.body;
+    const { refreshToken } = req.body;
     
-    if (!(username && refreshToken)) {
+    if (!refreshToken) {
         return res.status(400).json({ message: "Wrong field posted" });
     }
 
-    const isValid = verifyRefresh(username, refreshToken);
+    const verifyRefreshToken = verifyRefresh(refreshToken);
     
-    if (!isValid) {
+    if (!verifyRefreshToken.isValid) {
         return res.status(403).json({ message: "Token is not valid" });
     }
 
-    const accessToken = generateToken({ username }, accessTokenSecret, '10s');
-    res.json({ accessToken });
+    const accessToken = generateToken({ username: verifyRefreshToken.username }, accessTokenSecret, '10s');
+    res.status(200).json({ accessToken });
 });
 
 module.exports = router;

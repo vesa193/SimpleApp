@@ -10,7 +10,7 @@ export function* getUserProfileFlow() {
             const response = yield call(getProfile);
             // eslint-disable-next-line no-console
             console.log('RRESPPOOO', response);
-            yield put(getUserProfileSuccess({ user: response?.data }));
+            yield put(getUserProfileSuccess(response));
         } catch (error) {
             yield put(getUserProfileFailed(error.message));
         }

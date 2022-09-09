@@ -58,7 +58,7 @@ export const userSlice = createSlice({
             // eslint-disable-next-line no-console
             console.log('ACTION', action);
             state.isLoading = false;
-            state.userData = { ...state.userData, user: action?.payload?.user };
+            state.userData = action.payload;
         },
         getUserProfileFailed: (state, action) => {
             state.errorMessage = action.payload;

@@ -1,11 +1,11 @@
 const getLocalAccessToken = () => {
     const accessToken = localStorage.getItem('accessToken');
-    return accessToken || null;
+    return accessToken;
 };
 
 const getLocalRefreshToken = () => {
     const refreshToken = localStorage.getItem('refreshToken');
-    return refreshToken || null;
+    return refreshToken;
 };
 
 const getUserData = () => {

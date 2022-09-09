@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { ProtectedRoute } from './protectedRoute/protectedRoute';
+import { ProtectedRoutes } from './protectedRoutes/protectedRoutes';
 import { getUserProfileRequest } from './redux/reducers/user/user';
 import AllUsers from './screens/AllUsers/AllUsers';
 import Dashboard from './screens/Dashboard/Dashboard';
@@ -25,30 +25,11 @@ function App() {
         <Routes>
             <Route index path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-                path="/dashboard"
-                element={
-                    <ProtectedRoute>
-                        <Dashboard />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path="/allUsers"
-                element={
-                    <ProtectedRoute>
-                        <AllUsers />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path="/profile"
-                element={
-                    <ProtectedRoute>
-                        <Profile />
-                    </ProtectedRoute>
-                }
-            />
+            <Route element={<ProtectedRoutes />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/allUsers" element={<AllUsers />} />
+                <Route path="/profile" element={<Profile />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>
     );
