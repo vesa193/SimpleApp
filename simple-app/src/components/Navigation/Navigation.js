@@ -3,7 +3,6 @@ import './Navigation.css';
 import { Person2Rounded } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LinkRedirection } from '../Link/Link';
-import { getLocalAccessToken } from '../../utils/utils';
 
 const Navigation = () => {
     const location = useLocation();
