@@ -1,10 +1,10 @@
 import { Box, Button, Grid, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LinkRedirection } from '../../components/Link/Link';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import { onLoginRequest } from '../../redux/reducers/user/user';
+import { onLoginFailed, onLoginRequest } from '../../redux/reducers/user/user';
 import './Login.css';
 
 const Login = () => {
@@ -17,12 +17,12 @@ const Login = () => {
         password: '',
     });
 
-    // useEffect(
-    //     () => () => {
-    //         dispatch(onLoginFailed(''));
-    //     },
-    //     [dispatch]
-    // );
+    useEffect(
+        () => () => {
+            dispatch(onLoginFailed(''));
+        },
+        [dispatch]
+    );
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;

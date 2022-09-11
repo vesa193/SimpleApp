@@ -1,23 +1,30 @@
 import { IconButton } from '@mui/material';
 import './Navigation.css';
 import { Person2Rounded } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { LinkRedirection } from '../Link/Link';
 import { getLocalAccessToken } from '../../utils/utils';
 
 const Navigation = () => {
+    const location = useLocation();
     const navigate = useNavigate();
-    const token = getLocalAccessToken();
+
+    const handleLogoRedirection = (path) => {
+        if (location.pathname === '/') return;
+        navigate(path);
+    };
+
     return (
         <nav className="navigation">
-            <LinkRedirection path={token ? '/dashboard' : '/'} className="navigation-brand">
+            <LinkRedirection isDisabled={location.pathname === '/'} path="/dashboard">
                 SimpleApp
             </LinkRedirection>
             <IconButton
-                onClick={() => navigate('/profile')}
+                onClick={() => handleLogoRedirection('/profile')}
                 className="navigation-icon"
                 color="primary"
                 aria-label="go to profile"
+                disabled={location.pathname === '/'}
             >
                 <Person2Rounded />
             </IconButton>

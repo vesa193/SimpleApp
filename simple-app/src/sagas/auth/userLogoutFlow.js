@@ -6,8 +6,8 @@ export function* userLogoutFlow() {
     while (true) {
         yield take(onLogoutRequest.type);
         try {
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+            yield localStorage.removeItem('accessToken');
+            yield localStorage.removeItem('refreshToken');
             yield put(onLogoutSuccess(null));
             History.navigate('/', { replace: true });
         } catch (error) {

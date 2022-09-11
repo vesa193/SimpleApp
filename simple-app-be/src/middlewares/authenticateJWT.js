@@ -30,7 +30,7 @@ exports.authenticateJWT = (req, res, next) => {
       }
 
       if (error.message === "jwt malformed") {
-        const error = new Error('jwt malformed');
+        const error = new Error('jwt is not provided');
         error.statusCode = 401;
         throw error;
       }
