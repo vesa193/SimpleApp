@@ -3,7 +3,6 @@ const dotenv = require('../../configEnv');
 
 exports.authenticateJWT = (req, res, next) => {
     const isAuth = req.get('Authorization');
-    console.log('AUTH', isAuth);
     const token = isAuth?.split(' ')[1];
 
     if (!isAuth) {

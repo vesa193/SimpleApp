@@ -5,7 +5,6 @@ exports.getAllUsers = (req, res, next) => {
     const auth = req.get('Authorization');
     const token = auth.split(' ')[1];
     const decodedToken = jwt.decode(token);
-    console.log('decodedToken', decodedToken);
     const users = User.find({}, (err, users) => {
         const userMap = {};
 
