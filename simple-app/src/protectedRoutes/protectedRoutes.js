@@ -9,7 +9,7 @@ export const ProtectedRoutes = () => {
     const localAccessToken = getLocalAccessToken();
     const token = localAccessToken || accessToken;
 
-    return token ? <Outlet /> : <Navigate to="/" state={{ from: location }} />;
+    return token ? <Outlet /> : <Navigate to="/" replace state={{ from: location }} />;
 };
 
 ProtectedRoutes.displayName = 'ProtectedRoutes';
