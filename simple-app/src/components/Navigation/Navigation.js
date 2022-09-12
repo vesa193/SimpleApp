@@ -9,24 +9,27 @@ const Navigation = () => {
     const navigate = useNavigate();
 
     const handleLogoRedirection = (path) => {
-        if (location.pathname === '/') return;
         navigate(path);
     };
 
     return (
         <nav className="navigation">
-            <LinkRedirection isDisabled={location.pathname === '/'} path="/dashboard">
+            <LinkRedirection
+                isDisabled={location.pathname === '/' || location.pathname === '/register'}
+                path="/dashboard"
+            >
                 SimpleApp
             </LinkRedirection>
-            <IconButton
-                onClick={() => handleLogoRedirection('/profile')}
-                className="navigation-icon"
-                color="primary"
-                aria-label="go to profile"
-                disabled={location.pathname === '/'}
-            >
-                <Person2Rounded />
-            </IconButton>
+            {location.pathname !== '/' && location.pathname !== '/register' && (
+                <IconButton
+                    onClick={() => handleLogoRedirection('/profile')}
+                    className="navigation-icon"
+                    color="primary"
+                    aria-label="go to profile"
+                >
+                    <Person2Rounded />
+                </IconButton>
+            )}
         </nav>
     );
 };
